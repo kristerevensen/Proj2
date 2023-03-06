@@ -1,16 +1,13 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { Bars3CenterLeftIcon, Bars4Icon, ClockIcon, HomeIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid'
 import {
   ChevronRightIcon,
   ChevronUpDownIcon,
   EllipsisVerticalIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/20/solid'
-import TopBar from '../components/TopBar'
 import { Outlet } from 'react-router-dom'
-
 
 
 const navigation = [
