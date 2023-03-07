@@ -8,6 +8,7 @@ import {
   MagnifyingGlassIcon,
 } from '@heroicons/react/20/solid'
 import { Outlet } from 'react-router-dom'
+import TopBar from '../components/TopBar'
 
 
 const navigation = [
@@ -18,7 +19,7 @@ const navigation = [
 ]
 const teams = [
 
-  { name: 'Categories', href: '/campaigns/sources', bgColorClass: 'bg-black'},
+  { name: 'Categories', href: '/campaigns/sources', bgColorClass: 'bg-black' },
   { name: 'Sources', href: '/campaigns/sources', bgColorClass: 'bg-black' },
   { name: 'Medium', href: '#', bgColorClass: 'bg-black' },
   { name: 'Content', href: '#', bgColorClass: 'bg-black' },
@@ -30,12 +31,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Campaigns() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <>
-      <div className="min-h-full">
+      <TopBar />
+      <div className="min-h-auto relative">
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog as="div" className="relative z-40 lg:hidden" onClose={setSidebarOpen}>
             <Transition.Child
@@ -146,16 +148,10 @@ export default function Example() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col lg:border-r lg:border-gray-200 lg:bg-gray-100 lg:pt-5 lg:pb-4">
-          <div className="flex flex-shrink-0 items-center px-6">
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=purple&shade=500"
-              alt="Your Company"
-            />
-          </div>
+        <div className="hidden lg:fixed h-full lg:flex lg:w-64 lg:flex-col lg:border-r lg:border-t lg:border-gray-200 lg:bg-gray-100 lg:pt-5 lg:pb-4">
+
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="mt-5 flex h-0 flex-1 flex-col overflow-y-auto pt-1">
+          <div className=" flex h-0 flex-1 flex-col overflow-y-auto pt-1">
             {/* User account dropdown */}
             <Menu as="div" className="relative inline-block px-3 text-left">
               <div>
