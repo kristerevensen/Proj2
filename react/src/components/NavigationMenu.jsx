@@ -1,7 +1,9 @@
 
 const navigation = [
   { name: 'Projects', to: '/projects', current: true },
+  { name: 'Analytics', to: '/analytics', current: true },
   { name: 'Campaigns', to: '/campaigns', current: false },
+  { name: 'Experiments', to: '/experiments', current: true },
   { name: 'Growth', to: '/growth', current: false },
 ]
 
