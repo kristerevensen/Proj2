@@ -1,5 +1,6 @@
 import React from 'react'
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid'
+import CampaignStatsHeader from './CampaignStatsHeader'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -12,6 +13,7 @@ const stats = [
 export default function CampaignStats() {
   return (
     <>
+            <CampaignStatsHeader />
                 {/* Campaign Stats */}
                 <dl className="pl-2 pr-2 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden bg-white shadow md:grid-cols-3 md:divide-y-0 md:divide-x">
               {stats.map((item) => (

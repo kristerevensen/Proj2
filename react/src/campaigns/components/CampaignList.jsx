@@ -19,6 +19,8 @@ export default function CampaignList() {
     { id: 10, name: 'Campaign 10', startDate: '2022-10-01', endDate: '2022-11-01', status: 'inactive' },
   ];
 
+
+
   const handleSelectAll = () => {
     if (!selectAll) {
       const newSelectedRows = campaigns.map((campaign) => campaign.id);
@@ -63,7 +65,7 @@ export default function CampaignList() {
 
   return (
     <>
-    <table className="w-full whitespace-nowrap">
+    <table className="w-full whitespace-nowrap  border-t-2">
       <thead>
         <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
           <th className="px-4 py-3">

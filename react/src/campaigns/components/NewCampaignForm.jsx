@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-function NewCampaignSlideOver() {
+
+export default function NewCampaignForm() {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleOpen() {
@@ -19,13 +20,8 @@ function NewCampaignSlideOver() {
 
   return (
     <>
-      {/* Button to open slide-over */}
-      <button className="bg-blue-500 text-white py-2 px-4 rounded" onClick={handleOpen}>
-        Create New Campaign
-      </button>
-
       {/* Slide-over */}
-      <div className={`fixed inset-0 overflow-hidden z-50 ${isOpen ? "block" : "hidden"}`}>
+      <div className={`fixed inset-0 overflow-hidden z-60 ${isOpen ? "block" : "hidden"}`}>
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={handleClose}></div>
           <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16 outline-none">

@@ -1,43 +1,87 @@
+import React from 'react'
+import { Disclosure } from '@headlessui/react'
+
 import { Fragment, useState } from 'react'
-import { Dialog, Menu, Transition } from '@headlessui/react'
 import { Bars3CenterLeftIcon, Bars4Icon, ClockIcon, HomeIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Dialog, Menu, Transition } from '@headlessui/react'
 import {
   ChevronRightIcon,
   ChevronUpDownIcon,
   EllipsisVerticalIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/20/solid'
-import { Outlet } from 'react-router-dom'
-import TopBar from '../components/TopBar'
+import { NavLink } from 'react-router-dom'
 
 
 const navigation = [
-  { name: 'Dashboard', href: '/campaigns', icon: HomeIcon, current: true },
-  { name: 'Groups', href: '/campaigns/groups', icon: Bars4Icon, current: false },
-  { name: 'Links', href: '/campaigns/links', icon: ClockIcon, current: false },
-  { name: 'Clicks', href: '/campaigns/clicks', icon: ClockIcon, current: false },
-]
-const teams = [
+  { name: 'Dashboard', href: '#', current: true },
+  {
+      name: 'Audience',
+      current: false,
+      children: [
+          { name: 'Overview', to: '/audience/overview' },
+          { name: 'Devices', to: '/audience/devices' },
+          { name: 'Engagement', href: '#' },
+          { name: 'Technology', href: '#' },
+          { name: 'Custom Dimension', href: '#' },
+          { name: 'Custom Variables', href: '#' },
+      ],
+  },
+  {
+      name: 'Acquisition',
+      current: false,
+      children: [
+          { name: 'Overview', href: '#' },
+          { name: 'Search Engines', href: '#' },
+          { name: 'Referrals', href: '#' },
+          { name: 'Campaigns', href: '#' },
+          { name: 'Google Search Console', href: '#' },
+      ],
+  },
+  {
+      name: 'Behavior',
+      current: false,
+      children: [
+          { name: 'Overview', href: '#' },
+          { name: 'Pages', href: '#' },
+          { name: 'Internal Search', href: '#' },
+          { name: 'Outlinks', href: '#' },
+          { name: 'Downloads', href: '#' },
+          { name: 'Events', href: '#' },
+          { name: 'Content Performance', href: '#' },
+      ],
+  },
+  {
+      name: 'Conversion',
+      current: false,
+      children: [
+          { name: 'Overview', href: '#' },
+          { name: 'Goals', href: '#' },
+          { name: 'Ecommerce', href: '#' },
+          { name: 'Funnels', href: '#' },
+      ],
+  },
+  {
+      name: 'Reports',
+      current: false,
+      children: [
+          { name: 'Overview', href: '#' },
+          { name: 'Custom Reports', href: '#' },
 
-  { name: 'Categories', href: '/campaigns/sources', bgColorClass: 'bg-black' },
-  { name: 'Sources', href: '/campaigns/sources', bgColorClass: 'bg-black' },
-  { name: 'Medium', href: '#', bgColorClass: 'bg-black' },
-  { name: 'Content', href: '#', bgColorClass: 'bg-black' },
-  { name: 'Term', href: '#', bgColorClass: 'bg-black' },
-  { name: 'tags', href: '#', bgColorClass: 'bg-black' },
+      ],
+  },
 ]
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Campaigns() {
+export default function AnalyticsSidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-
   return (
     <>
-      <TopBar />
-      <div className="min-h-auto relative">
+
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog as="div" className="relative z-40 lg:hidden" onClose={setSidebarOpen}>
             <Transition.Child
@@ -93,48 +137,64 @@ export default function Campaigns() {
                   <div className="mt-5 h-0 flex-1 overflow-y-auto">
                     <nav className="px-2">
                       <div className="space-y-1">
-                        {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                              'group flex items-center rounded-md px-2 py-2 text-base font-medium leading-5'
-                            )}
-                            aria-current={item.current ? 'page' : undefined}
-                          >
-                            <item.icon
-                              className={classNames(
-                                item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                                'mr-3 h-6 w-6 flex-shrink-0'
-                              )}
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </a>
-                        ))}
-                      </div>
-                      <div className="mt-8">
-                        <h3 className="px-3 text-sm font-medium text-gray-500" id="mobile-teams-headline">
-                          Teams
-                        </h3>
-                        <div className="mt-1 space-y-1" role="group" aria-labelledby="mobile-teams-headline">
-                          {teams.map((team) => (
-                            <a
-                              key={team.name}
-                              href={team.href}
-                              className="group flex items-center rounded-md px-3 py-2 text-base font-medium leading-5 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                            >
-                              <span
-                                className={classNames(team.bgColorClass, 'mr-4 h-2.5 w-2.5 rounded-full')}
-                                aria-hidden="true"
-                              />
-                              <span className="truncate">{team.name}</span>
-                            </a>
-                          ))}
-                        </div>
+                      <nav className="flex-1 space-y-1 bg-white px-2" aria-label="Sidebar">
+                    {navigation.map((item) =>
+                        !item.children ? (
+                            <div key={item.name}>
+                                <a
+                                    to={item.to}
+                                    className={ ({isActive}) => classNames(
+                                        isActive
+                                            ? 'bg-gray-100 text-gray-900'
+                                            : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                        'group flex w-full items-center rounded-md py-2 pl-7 pr-2 text-sm font-medium'
+                                    )}
+                                >
+                                    {item.name}
+                                </a>
+                            </div>
+                        ) : (
+                            <Disclosure as="div" key={item.name} className="space-y-1">
+                                {({ open }) => (
+                                    <>
+                                        <Disclosure.Button
+                                            className={({isActive}) => classNames(
+                                                isActive
+                                                    ? 'bg-gray-100 text-gray-900'
+                                                    : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                                'group flex w-full items-center rounded-md py-2 pr-2 text-left text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500'
+                                            )}
+                                        >
+                                            <svg
+                                                className={({isActive}) => classNames(
+                                                    open ? 'rotate-90 text-gray-400' : 'text-gray-300',
+                                                    'mr-2 h-5 w-5 flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400'
+                                                )}
+                                                viewBox="0 0 20 20"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M6 6L14 10L6 14V6Z" fill="currentColor" />
+                                            </svg>
+                                            {item.name}
+                                        </Disclosure.Button>
+                                        <Disclosure.Panel className="space-y-1">
+                                            {item.children.map((subItem) => (
+                                                <Disclosure.Button
+                                                    key={subItem.name}
+                                                    as="a"
+                                                    href={subItem.href}
+                                                    className="group flex w-full items-center rounded-md py-2 pl-10 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                                >
+                                                    {subItem.name}
+                                                </Disclosure.Button>
+                                            ))}
+                                        </Disclosure.Panel>
+                                    </>
+                                )}
+                            </Disclosure>
+                        )
+                    )}
+                </nav>
                       </div>
                     </nav>
                   </div>
@@ -275,59 +335,69 @@ export default function Campaigns() {
             {/* Navigation */}
             <nav className="mt-6 px-3">
               <div className="space-y-1">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900',
-                      'group flex items-center rounded-md px-2 py-2 text-sm font-medium'
+              <nav className="flex-1 space-y-1 px-2" aria-label="Sidebar">
+                    {navigation.map((item) =>
+                        !item.children ? (
+                            <div key={item.name}>
+                                <a
+                                    href={item.href}
+                                    className={classNames(
+                                        item.current
+                                            ? 'bg-gray-100 text-gray-900'
+                                            : ' text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                        'group flex w-full items-center rounded-md py-2 pl-7 pr-2 text-sm font-medium'
+                                    )}
+                                >
+                                    {item.name}
+                                </a>
+                            </div>
+                        ) : (
+                            <Disclosure as="div" key={item.name} className="space-y-1">
+                                {({ open }) => (
+                                    <>
+                                        <Disclosure.Button
+                                            className={classNames(
+                                                item.current
+                                                    ? 'bg-gray-100 text-gray-900'
+                                                    : ' text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                                'group flex w-full items-center rounded-md py-2 pr-2 text-left text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500'
+                                            )}
+                                        >
+                                            <svg
+                                                className={classNames(
+                                                    open ? 'rotate-90 text-gray-400' : 'text-gray-300',
+                                                    'mr-2 h-5 w-5 flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400'
+                                                )}
+                                                viewBox="0 0 20 20"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M6 6L14 10L6 14V6Z" fill="currentColor" />
+                                            </svg>
+                                            {item.name}
+                                        </Disclosure.Button>
+                                        <Disclosure.Panel className="space-y-1">
+                                            {item.children.map((subItem) => (
+                                                <Disclosure.Button
+                                                    key={subItem.name}
+                                                    as="a"
+                                                    href={subItem.href}
+                                                    className="group flex w-full items-center rounded-md py-2 pl-10 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                                >
+                                                    {subItem.name}
+                                                </Disclosure.Button>
+                                            ))}
+                                        </Disclosure.Panel>
+                                    </>
+                                )}
+                            </Disclosure>
+                        )
                     )}
-                    aria-current={item.current ? 'page' : undefined}
-                  >
-                    <item.icon
-                      className={classNames(
-                        item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                        'mr-3 h-6 w-6 flex-shrink-0'
-                      )}
-                      aria-hidden="true"
-                    />
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-              <div className="mt-8">
-                {/* Secondary navigation */}
-                <h3 className="px-3 text-sm font-medium text-gray-500" id="desktop-teams-headline">
-                  Configuration
-                </h3>
-                <div className="mt-1 space-y-1" role="group" aria-labelledby="desktop-teams-headline">
-                  {teams.map((team) => (
-                    <a
-                      key={team.name}
-                      href={team.href}
-                      className="group flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                    >
-                      <span
-                        className={classNames(team.bgColorClass, 'mr-4 h-2.5 w-2.5 rounded-full')}
-                        aria-hidden="true"
-                      />
-                      <span className="truncate">{team.name}</span>
-                    </a>
-                  ))}
-                </div>
+                </nav>
               </div>
             </nav>
           </div>
         </div>
-        {/* Main column */}
-        <div className="flex flex-col lg:pl-64">
 
-          <main className="flex-1">
-            <Outlet />
-          </main>
-        </div>
-      </div>
     </>
   )
 }
