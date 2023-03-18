@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DateRangeSelector from '../components/DateRangeSelector';
+import GoogleAnalyticsReport from './GoogleAnalyticsReport';
 import Pages from './Pages';
 
 
@@ -11,6 +12,7 @@ function AnalyticsDashboard() {
       <h1>My Component</h1>
       <Pages />
       <DateRangeSelector />
+      <GoogleAnalyticsReport />
     </div>
   );
 }

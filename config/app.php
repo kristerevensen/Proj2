@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'cors' => \Fruitcake\Cors\HandleCors::class,
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
