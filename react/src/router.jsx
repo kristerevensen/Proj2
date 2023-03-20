@@ -19,101 +19,116 @@ import ProjectsDashboard from "./projects/ProjectsDashboard";
 import Audience from "./analytics/audience/Audience";
 import AudienceOverview from "./analytics/audience/AudienceOverview";
 import AudienceDevices from "./analytics/audience/AudienceDevices";
+import GuestLayout from "./components/GuestLayout";
+import DefaultLayout from "./components/DefaultLayout";
 
 const router = createBrowserRouter([
   {
-    path: "/experiments",
-    element: <Experiments />,
+    path: "/",
+    element: <GuestLayout />,
     children: [
       {
-        path: "",
-        element: <ExperimentsDashboard />,
+        path: "login",
+        element: <Login />
       },
-
+      {
+        path: "signup",
+        element: <Signup />
+      },
     ]
   },
   {
-    path: "/analytics",
-    element: <Analytics />,
+    element: <DefaultLayout />,
     children: [
       {
-        path: "",
-        element: <AnalyticsDashboard />
-      },
-      {
-        path: "pages",
-        element: <Pages />
-      },
-      {
-        path: "audience",
-        element: <Audience />,
+        path: "/experiments",
+        element: <Experiments />,
         children: [
           {
-            path: "overview",
-            element: <AudienceOverview />
+            path: "",
+            element: <ExperimentsDashboard />,
+          },
+    
+        ]
+      },
+      {
+        path: "/analytics",
+        element: <Analytics />,
+        children: [
+          {
+            path: "",
+            element: <AnalyticsDashboard />
           },
           {
-            path: "devices",
-            element: <AudienceDevices />
+            path: "pages",
+            element: <Pages />
+          },
+          {
+            path: "audience",
+            element: <Audience />,
+            children: [
+              {
+                path: "overview",
+                element: <AudienceOverview />
+              },
+              {
+                path: "devices",
+                element: <AudienceDevices />
+              }
+            ]
           }
         ]
-      }
-    ]
-  },
-  {
-    path: "/campaigns",
-    element: <Campaigns />,
-    children: [
-      {
-        path: "",
-        element: <Dashboard />
       },
       {
-        path: "new",
-        element: <CampaignsNew />
+        path: "/campaigns",
+        element: <Campaigns />,
+        children: [
+          {
+            path: "",
+            element: <Dashboard />
+          },
+          {
+            path: "new",
+            element: <CampaignsNew />
+          },
+          {
+            path: "groups",
+            element: <CampaignGroups />
+          },
+          {
+            path: "links",
+            element: <CampaignLinks />
+          },
+          {
+            path: "clicks",
+            element: <CampaignLinkClicks />
+          }
+        ]
       },
       {
-        path: "groups",
-        element: <CampaignGroups />
+        path: "/growth",
+        element: <Growth />,
+        children: [
+          {
+            path: "",
+            element: <GrowthDashboard />
+          }
+        ]
       },
       {
-        path: "links",
-        element: <CampaignLinks />
+        path: "/projects",
+        element: <Projects />,
+        children: [
+          {
+            path: "",
+            element: <ProjectsDashboard />
+          }
+        ]
       },
-      {
-        path: "clicks",
-        element: <CampaignLinkClicks />
-      }
+    
     ]
   },
-  {
-    path: "/growth",
-    element: <Growth />,
-    children: [
-      {
-        path: "",
-        element: <GrowthDashboard />
-      }
-    ]
-  },
-  {
-    path: "/projects",
-    element: <Projects />,
-    children: [
-      {
-        path: "",
-        element: <ProjectsDashboard />
-      }
-    ]
-  },
-  {
-    path: "/",
-    element: <Login />
-  },
-  {
-    path: "/signup",
-    element: <Signup />
-  },
+ 
 ])
 
 export default router;

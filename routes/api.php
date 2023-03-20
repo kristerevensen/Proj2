@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\PageReportController;
 
 /*
@@ -33,6 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/track', [TrackingController::class, 'track']);
 Route::post('/store_project', [ProjectController::class, 'store']);
 Route::get('/list_projects', [ProjectController::class, 'index']); 
+Route::post('/upload-excel', [ExcelController::class, 'store']);
 
 Route::post('/accounts', [AccountController::class, 'store']);
 Route::get('/accounts/{user_id}', [AccountController::class, 'show']);
