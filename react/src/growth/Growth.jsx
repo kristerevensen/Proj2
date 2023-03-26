@@ -1,13 +1,12 @@
-import { Outlet } from "react-router-dom";
-import TopBar from "../components/TopBar";
-import ABTestingForm from "./components/NewTest";
+import PageComponent from "../components/PageComponent";
 
 export default function Growth() {
   return (
     <>
-    <TopBar />
-    <ABTestingFormcd  />
-    <Outlet />
+      {/* Growth Component */}
+      <PageComponent title="Growth">
+        children:
+      </PageComponent>
     </>
   )
 }

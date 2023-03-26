@@ -21,6 +21,11 @@ import AudienceOverview from "./analytics/audience/AudienceOverview";
 import AudienceDevices from "./analytics/audience/AudienceDevices";
 import GuestLayout from "./components/GuestLayout";
 import DefaultLayout from "./components/DefaultLayout";
+import EvaluationsDashboard from "./evaluations/EvaluationsDashboard";
+import Evaluations from "./evaluations/Evaluations";
+import NewEvaluation from "./evaluations/NewEvaluation";
+import Tools from "./tools/Tools";
+import MetaGenerator from "./tools/MetaGenerator";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +55,22 @@ const router = createBrowserRouter([
           },
     
         ]
+      },
+      {
+        path: "/tools",
+        element: <Tools />,
+      },
+      {
+        path: "/tools/meta-generator",
+        element: <MetaGenerator />,
+      },
+      {
+        path: "/evaluations",
+        element: <Evaluations />,
+      },
+      {
+        path: "/evaluations/new",
+        element: <NewEvaluation />,
       },
       {
         path: "/analytics",

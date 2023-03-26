@@ -2,10 +2,7 @@ import React from 'react'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { NavLink } from "react-router-dom"
-import ProjectSelector from './ProjectSelector'
-import { userStateContext } from './ContextProvider'
 import { UserIcon } from '@heroicons/react/20/solid'
-
 
 const navigation = [
   { name: 'Projects', to: '/projects'},
@@ -13,10 +10,9 @@ const navigation = [
   { name: 'Campaigns', to: '/campaigns' },
   { name: 'Experiments', to: '/experiments' },
   { name: 'Growth', to: '/growth' },
+  { name: 'Evaluations', to: '/evaluations' },
+  { name: 'Tools', to: '/tools' },
 ]
-const isActive = navigation;
-
-
 
 
 const userNavigation = [
@@ -28,10 +24,6 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 export default function TopNav() {
-  const [currentUser, userToken] = userStateContext();
-  if(!userToken) {
-    return <Navigate to="/login" />
-  } 
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -42,7 +34,7 @@ export default function TopNav() {
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <img
-                      className="h-8 w-8"
+                      className="h-10 w-9"
                       src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                       alt="Your Company"
                     />
@@ -68,7 +60,8 @@ export default function TopNav() {
                 </div>
                 <div className="md:block">
                   <div className="ml-4 flex items-center md:ml-4">
-                    <ProjectSelector />
+                   
+                    {/* <ProjectSelector /> */}
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
@@ -78,6 +71,7 @@ export default function TopNav() {
                           <UserIcon className='w-6 text-white' />
                         </Menu.Button>
                       </div>
+                      
                       <Transition
                         as={Fragment}
                         enter="transition ease-out duration-100"
@@ -87,6 +81,7 @@ export default function TopNav() {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
+                        
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           {userNavigation.map((item) => (
                             <Menu.Item key={item.name}>

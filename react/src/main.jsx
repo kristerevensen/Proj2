@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
-import { ContextProvider } from './components/ContextProvider'
+import { ContextProvider } from './context/ContextProvider'
 import './index.css'
 import router from './router.jsx'
 

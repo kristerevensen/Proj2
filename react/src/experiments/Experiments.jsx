@@ -1,12 +1,12 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import TopBar from '../components/TopBar'
+import PageComponent from '../components/PageComponent'
 
 export default function Experiments() {
   return (
-      <>
-        <TopBar />
-        <Outlet />
-      </>
-    )
+    <>
+      {/* Experiments Component */}
+      <PageComponent title="Experiments">
+        children:
+      </PageComponent>
+    </>
+  )
 }
