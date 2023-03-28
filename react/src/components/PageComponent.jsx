@@ -10,6 +10,7 @@ export default function PageComponent({ title, buttons = '', buttonTitle= "", ch
                     <div className="flex justify-between items-center mx-auto max-w-7xl py-4 px-4 sm:px-6 lg:px-8">
                         <h1 className="text-lg font-semibold leading-6 text-gray-900"> {title}</h1>
                         
+                            
                        
                         {/* <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                             <a

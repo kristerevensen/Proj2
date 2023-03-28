@@ -1,42 +1,63 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\SignupRequest;
 use App\Models\User;
-use GuzzleHttp\Exception\ClientException;
-use Illuminate\Http\JsonResponse;
-use Laravel\Socialite\Contracts\User as SocialiteUser;
-use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class AuthController extends Controller
 {
+    public function signup(SignupRequest $request) {
+        $data = $request->validated();
+        $user = User::create($request->all());
 
-    public function handleAuthCallback(): JsonResponse
-    {
-        try {
-            /** @var SocialiteUser $socialiteUser */
-            $socialiteUser = Socialite::driver('google')->stateless()->user();
-        } catch (ClientException $e) {
-            return response()->json(['error' => 'Invalid credentials provided.'], 422);
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return $this->respondWithToken($token);
+
+        return response(
+            [
+                'user' => $user,
+                'token' => $token,
+            ],
+            201
+        );
+    }
+
+    public function login(LoginRequest $request) {
+        $credentials = $request->validated();
+        $remember = $request->remember_me ?? false;
+        unset($credentials['remember_me']);
+
+        if(!Auth::attempt($credentials, $remember)) {
+            return response([
+                'error' => 'Unauthorized'
+            ], 422);
         }
+        $user = Auth::user();
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        /** @var User $user */
-        $user = User::query()
-            ->firstOrCreate(
-                [
-                    'email' => $socialiteUser->getEmail(),
-                ],
-                [
-                    'email_verified_at' => now(),
-                    'name' => $socialiteUser->getName(),
-                    'google_id' => $socialiteUser->getId(),
-                    'avatar' => $socialiteUser->getAvatar(),
-                ]
-            );
-
-        return response()->json([
+        return response([
             'user' => $user,
-            'access_token' => $user->createToken('google-token')->plainTextToken,
-            'token_type' => 'Bearer',
+            'token' => $token,
+        ]);
+
+    }
+    public function logout() {
+        $user = Auth::user();
+        auth()->logout();
+        $user->currentAccessToken()->delete();
+        return response([
+            'success' => 'true'
         ]);
     }
+
 }

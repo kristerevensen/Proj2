@@ -20,17 +20,17 @@ const tmpProjects = [
         type: 'web',
         created_at: '2020-10-10',
         updated_at: '2020-10-10'
-        
-    }, 
+
+    },
     {
         id: 2,
         name: 'Project 2',
         description: 'This is a project description',
         status: 'active',
         type: 'web',
-        created_at: '2020-10-10',   
+        created_at: '2020-10-10',
         updated_at: '2020-10-10'
-    }, 
+    },
     {
         id: 3,
         name: 'Project 3',
@@ -39,7 +39,7 @@ const tmpProjects = [
         type: 'mobile',
         created_at: '2020-10-10',
         updated_at: '2020-10-10'
-    }, 
+    },
     {
         id: 4,
         name: 'Project 4',
@@ -121,18 +121,18 @@ const tmpProjects = [
         created_at: '2020-10-10',
         updated_at: '2020-10-10'
     },
-    
+
 ]
 
 export const ContextProvider = ({ children }) => {
-    
+
     const [currentUser, setCurrentUser] = useState({
         name: 'Tom Cook',
         email: 'tom@example.com',
         imageUrl:
             'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
     });
-    const [userToken, setUserToken] = useState('1234');
+    const [userToken, setUserToken] = useState();
     const [projects, setProjects] = useState(tmpProjects);
 
     return (
@@ -148,4 +148,4 @@ export const ContextProvider = ({ children }) => {
     );
 }
 
-export const useStateContext = () => useContext(StateContext); 
+export const useStateContext = () => useContext(StateContext);
