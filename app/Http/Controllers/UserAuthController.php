@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignupRequest;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,13 +22,13 @@ class AuthController extends Controller
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        return $this->respondWithToken($token);
 
         return response(
             [
                 'user' => $user,
                 'token' => $token,
-            ],
-            201
+            ]
         );
     }
 
@@ -52,13 +52,12 @@ class AuthController extends Controller
 
     }
 
-
-    public function logout() {
-        $user = Auth::user();
-        auth()->logout();
-        $user->tokens()->delete();
-        return response([
-            'success' => 'true'
-        ]);
-    }
+    // public function logout() {
+    //     $user = Auth::user();
+    //     auth()->logout();
+    //     $user->tokens()->delete();
+    //     return response([
+    //         'success' => 'true'
+    //     ]);
+    // }
 }

@@ -2,12 +2,14 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\PageReportController;
+use App\Http\Controllers\AuthController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +32,9 @@ use App\Http\Controllers\PageReportController;
 // });
 
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController ::class, 'login']);
 Route::post('/signup', [AuthController::class, 'signup']);
+Route::post('/logout', [AuthController::class, 'logout']);
 
 
 

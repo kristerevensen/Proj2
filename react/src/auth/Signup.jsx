@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axiosClient from '../axios.js';
+import { useStateContext } from '../context/ContextProvider.jsx';
+
 
 
 export default function Signup() {
+  const { setCurrentUser, setUserToken } = useStateContext();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,14 +16,6 @@ export default function Signup() {
   const onSubmit = (e) => {
     e.preventDefault();
     setError({ __html: '' });
-    console.log(
-      'Full Name: ' + fullName +
-      '.\nEmail: ' + email +
-      '.\nPassword: ' + password +
-      '.\nConfirm Password: ' + confirmPassword
-      );
-
-
 
     axiosClient
       .post('http://127.0.0.1:8000/api/signup', {
@@ -30,7 +25,9 @@ export default function Signup() {
         password_confirmation: confirmPassword,
       })
       .then(({ data }) => {
-        console.log(data);
+        setCurrentUser(data.user);
+        setUserToken(data.token);
+        //console.log(data);
       })
       .catch((error) => {
         if (error.response) {
@@ -86,7 +83,7 @@ export default function Signup() {
               {error.__html && (<div className="bg-red-500 rounded py-2 px-2 text-white" dangerouslySetInnerHTML={error}></div>)}
 
               <div className="mt-6">
-                <form onSubmit={onSubmit} method="POST" className="space-y-6" actions="#">
+                <form onSubmit={onSubmit} method="POST" className="space-y-6" >
 
 
                   <div className="-space-y-px shadow-sm">

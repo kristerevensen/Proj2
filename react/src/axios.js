@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { Router } from 'react-router-dom';
 
-fetch('/csrf-cookie').then(response => {
-  // The CSRF token cookie has been set.
-});
-
 const axiosClient = axios.create({
 
     baseURL: `${import.meta.env.VITE_API_BASE_URL}/api/`,
@@ -28,17 +24,13 @@ axiosClient.interceptors.response.use(
     }
 );
 
-axiosClient.interceptors.response.use(
-    (response) => {
-        if (response && response.data) {
-            return response.data;
-        }
+axiosClient.interceptors.response.use(response => {
         return response;
     },
-    (error) => {
+    error => {
         if(error.response && error.response.status === 401) {
             Router.navigate('/login');
-            console.log("Unauthorized");
+            //console.log("Unauthorized");
             return error;
         }
         throw error;

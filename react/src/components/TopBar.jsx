@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -78,12 +78,12 @@ export default function TopBar() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to="/logout"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>
