@@ -3,10 +3,10 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { useStateContext } from '../context/ContextProvider'
 
 export default function DefaultLayout() {
-  const {currentUser, userToken} = useStateContext();
+  const {currentUser, userToken, setCurrentUser, setUserToken} = useStateContext();
 
   if(!userToken) {
-    return <Navigate to= 'login' /> 
+    return <Navigate to= 'login' />
   }
 
   const login = (ev) => {
@@ -18,6 +18,11 @@ export default function DefaultLayout() {
     localStorage.removeItem('userToken');
     localStorage.removeItem('currentUser');
     window.location.reload();
+    axiosClient.post('http://' + process.env.REACT_APP_API_URL + '/api/logout')
+        .then(res => {
+          setCurrentUser({});
+          setUserToken(null);
+        });
   }
   return (
     <>

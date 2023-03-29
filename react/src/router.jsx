@@ -53,7 +53,7 @@ const router = createBrowserRouter([
             path: "",
             element: <ExperimentsDashboard />,
           },
-    
+
         ]
       },
       {
@@ -146,10 +146,10 @@ const router = createBrowserRouter([
           }
         ]
       },
-    
+
     ]
   },
- 
+
 ])
 
 export default router;

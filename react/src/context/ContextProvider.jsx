@@ -127,8 +127,18 @@ const tmpProjects = [
 export const ContextProvider = ({ children }) => {
 
     const [currentUser, setCurrentUser] = useState({});
-    const [userToken, setUserToken] = useState('');
+    const [userToken, _setUserToken] = useState(localStorage.getItem('token') || null);
     const [projects, setProjects] = useState(tmpProjects);
+
+
+    const setUserToken = (token) => {
+      if(token !== null) {
+        localStorage.setItem('token', token);
+      } else {
+        localStorage.removeItem('token');
+      }
+      _setUserToken(token);
+    }
 
     return (
         <StateContext.Provider value={{

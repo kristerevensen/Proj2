@@ -27,14 +27,14 @@ use App\Http\Controllers\AuthController;
 //Route::post('/page-reports', [PageReportController::class, 'store']);
 
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout' , [AuthController::class, 'logout']);
+    Route::apiResource('projects', ProjectController::class);
+});
 
 
 Route::post('/login', [AuthController ::class, 'login']);
 Route::post('/signup', [AuthController::class, 'signup']);
-Route::post('/logout', [AuthController::class, 'logout']);
 
 
 

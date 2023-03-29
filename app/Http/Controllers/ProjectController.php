@@ -2,36 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectStoreRequest;
+use App\Http\Requests\ProjectUpdateRequest;
+use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-
 
 class ProjectController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
     {
-        $projects = Project::all();
-        return response()->json(['projects' => $projects]);
+        //
+        $user = $request->user();
+        return ProjectResource::collection(
+            Project::where('user_id', $user->id)
+            ->order_by('created_at', 'desc')
+            ->paginate(10)->get()
+        );
     }
 
-    public function store(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(ProjectStoreRequest $request)
     {
-        dump($request->all());
-        die();
-        $validator = Validator::make($request->all(), [
-            'account_id' => 'required|integer|exists:accounts,id',
-            'name' => 'required|string|max:255',
-            'url' => 'required|string|max:255',
-        ]);
-    
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
-    
-        $project = Project::create($request->all());
-    
-        return response()->json(['message' => 'Project created successfully', 'data' => $project], 201);
+        //
+        $data = $request->validated();
+        $user = $request->user();
+        $project = Project::create($data);
+
+        return new ProjectResource($project);
     }
-    
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(ProjectUpdateRequest $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
 }

@@ -18,8 +18,7 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.response.use(
     (config) => {
-       const token = "1234"; //TODO: get token from somewhere
-       config.headers.Authorization = `Bearer ${token}`;
+       config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
         return config;
     }
 );

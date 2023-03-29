@@ -54,8 +54,8 @@ export default function Signup() {
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
               <img
-                className="h-100 w-auto"
-                src="https://www.thrustforge.com/ThrustForgeMainLogo2400x1800.png"
+                className="h-100 w-auto mb-20"
+                src="https://www.thrustforge.com/ThrustForgeLogo.png"
                 alt="ThrustForge"
               />
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Register your account</h2>
